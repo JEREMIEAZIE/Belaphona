@@ -1,55 +1,53 @@
-body {
-    margin: 0;
-    font-family: 'Creepster', cursive;
-    background: #000;
-    color: #fff;
-    text-align: center;
+// Background sound
+const spookySound = new Howl({
+    src: ['sounds/spooky.mp3'],
+    loop: true,
+    volume: 0.5
+});
+
+spookySound.play();
+
+// Three.js Scene
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true });
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.getElementById("threejs-container").appendChild(renderer.domElement);
+
+// Create Floating Pumpkins
+const pumpkinGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+const pumpkinMaterial = new THREE.MeshStandardMaterial({ color: "#ff4500" });
+const pumpkins = [];
+
+for (let i = 0; i < 5; i++) {
+    const pumpkin = new THREE.Mesh(pumpkinGeometry, pumpkinMaterial);
+    pumpkin.position.set(Math.random() * 5 - 2.5, Math.random() * 3 - 1.5, Math.random() * 3 - 1);
+    scene.add(pumpkin);
+    pumpkins.push(pumpkin);
 }
 
-header {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    background: #111;
-    box-shadow: 0 0 20px orange;
+// Lighting
+const light = new THREE.PointLight("#ff8c00", 1.5, 10);
+light.position.set(2, 2, 2);
+scene.add(light);
+
+camera.position.z = 5;
+
+// Animation
+function animate() {
+    requestAnimationFrame(animate);
+
+    pumpkins.forEach((pumpkin, index) => {
+        pumpkin.rotation.y += 0.02;
+        pumpkin.position.y += Math.sin(Date.now() * 0.001 + index) * 0.005;
+    });
+
+    renderer.render(scene, camera);
 }
 
-.logo h1 {
-    color: orange;
-    font-size: 24px;
-    text-shadow: 2px 2px 10px red;
-}
+animate();
 
-/* Video Thumbnails */
-.videos {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 40px;
-    flex-wrap: wrap;
-}
-
-.video {
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.video img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.video:hover {
-    transform: scale(1.1);
-}
-
-/* Video Player */
-.video-player-container {
-    padding: 20px;
-    background: #222;
-}
-
-video {
-    border-radius: 10px;
-}
+// GSAP Animations
+gsap.from(".logo", { opacity: 0, y: -50, duration: 1.5 });
+gsap.from(".video", { opacity: 0, scale: 0.5, stagger: 0.2, duration: 1.5 });
