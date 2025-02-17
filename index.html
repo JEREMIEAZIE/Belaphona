@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belaphona - Halloween</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+    <!-- Halloween Themed Header -->
+    <header>
+        <div class="logo">
+            <h1>Belaphona 🎃</h1>
+        </div>
+    </header>
+
+    <!-- 3D Spooky Background -->
+    <div id="threejs-container"></div>
+
+    <!-- Video Thumbnails -->
+    <section class="videos">
+        <div class="video" onclick="window.location.href='video.html?video_id=1'">
+            <img src="https://source.unsplash.com/400x250/?horror,ghost" alt="Spooky Video">
+            <p>👻 Haunted House Exploration</p>
+        </div>
+        <div class="video" onclick="window.location.href='video.html?video_id=2'">
+            <img src="https://source.unsplash.com/400x250/?pumpkin,halloween" alt="Halloween Night">
+            <p>🎃 The Legend of the Pumpkin King</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
